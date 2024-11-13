@@ -1,6 +1,3 @@
 ﻿namespace CarFactory.Cars.Dtos;
 
-public class CarDto
-{
-    
-}
+public record CarDto(string Name);

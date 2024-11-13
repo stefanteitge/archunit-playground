@@ -1,8 +1,8 @@
 ﻿using CarFactory.Cars.Domain;
 
-namespace CarFactory.Cars.Persistence.Impl;
+namespace CarFactory.Cars.Query;
 
-internal class CarRepository : ICarRepository
+public class GetCarByIdQuery
 {
     public Car? GetCarById(Guid carId)
     {
