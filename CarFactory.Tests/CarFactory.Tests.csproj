@@ -22,4 +22,8 @@
     <Using Include="Xunit" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CarFactory\CarFactory.csproj" />
+  </ItemGroup>
+
 </Project>

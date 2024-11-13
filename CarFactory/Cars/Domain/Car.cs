@@ -1,9 +1,6 @@
 namespace CarFactory.Cars.Domain;
 
-public class Car
+public class Car(Engine engine)
 {
-    public Car(Engine engine)
-    {
-        
-    }
+    public Engine Engine { get; } = engine;
 }
