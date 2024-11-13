@@ -1,13 +1,25 @@
+using ArchUnitNET.Domain;
+using ArchUnitNET.Fluent.Conditions;
 using ArchUnitNET.xUnit;
+using CarFactory.Core;
+using static CarFactory.Tests.Architecture.ArchitectureDefinitions;
 
 namespace CarFactory.Tests.Architecture;
 
-public class UnitTest1
+public class ArchitectureTest
 {
     [Fact]
-    public void CommandsAreInNamespace()
+    public void TypeWithPostfixCommandAreInCommandFolder()
     {
-        ArchitectureDefinitions.AllCommands.Should().ResideInNamespace(".*\\.Commands$", true)
+        AllCommandsByName.Should().ResideInNamespace(".*\\.Commands$", true)
+            .WithoutRequiringPositiveResults()
+            .Check(ArchitectureDefinitions.Architecture);
+    }
+    
+    [Fact]
+    public void TypesInDtosFolderHaveDtoSuffix()
+    {
+        AllDtosByNamepsace.Should().HaveNameEndingWith("Dto")
             .WithoutRequiringPositiveResults()
             .Check(ArchitectureDefinitions.Architecture);
     }
@@ -15,7 +27,15 @@ public class UnitTest1
     [Fact]
     public void ControllersDontUseRepositories()
     {
-        ArchitectureDefinitions.AllControllers.Should().NotDependOnAny(ArchitectureDefinitions.AllRepositories)
+        AllControllers.Should().NotDependOnAny(AllRepositories)
+            .WithoutRequiringPositiveResults()
+            .Check(ArchitectureDefinitions.Architecture);
+    }
+    
+    [Fact]
+    public void RepositoriesAlwaysDeriveFromInterface()
+    {
+        AllRepositoriesByName.Should().ImplementInterface(typeof(IRepository))
             .WithoutRequiringPositiveResults()
             .Check(ArchitectureDefinitions.Architecture);
     }
@@ -23,8 +43,31 @@ public class UnitTest1
     [Fact]
     public void ImplementationsAreAlwaysPrivate()
     {
-        ArchitectureDefinitions.AllInternal.Should().BeInternal()
+        AllInternal.Should().BeInternal()
             .WithoutRequiringPositiveResults()
             .Check(ArchitectureDefinitions.Architecture);
+    }
+    
+    [Fact]
+    public void HandlerHaveHandleMethod()
+    {
+        AllHandlerByName.Should().FollowCustomCondition(new HasMethod("Handle"))
+            .WithoutRequiringPositiveResults()
+            .Check(ArchitectureDefinitions.Architecture);
+    }
+
+    private class HasMethod(string methodName) : ICondition<IType>
+    {
+        public string Description => "Check for handle method";
+
+        public IEnumerable<ConditionResult> Check(IEnumerable<IType> objects, ArchUnitNET.Domain.Architecture architecture)
+        {
+            return from obj in objects let pass = obj.Members.Any(m => m.Name.StartsWith($"{methodName}(")) select new ConditionResult(obj, pass);
+        }
+
+        public bool CheckEmpty()
+        {
+            return false;
+        }
     }
 }
