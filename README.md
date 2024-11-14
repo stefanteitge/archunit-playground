@@ -2,6 +2,12 @@
 
 This is no runnable application. There are some rough types to illustrate concepts.
 
-Tests can be broken by changing some code it checks.
+It uses https://github.com/TNG/ArchUnitNET to check for architecture violations in code.
 
-ControllersDontUseRepositories is broken by default.
+To execute run `dotnet test` in project.
+
+## Tests
+
+Tests can be broken by changing the code it checks.
+
+`ControllersDontUseRepositories` and `CarsShouldNotDependedOnEmployees` are broken by default.

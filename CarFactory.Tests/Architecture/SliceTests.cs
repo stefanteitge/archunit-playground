@@ -26,13 +26,12 @@ public class SliceTests
     private GivenSlices SliceIt()
     {
         var ruleCreator = new SliceRuleCreator();
-        ruleCreator.SetSliceAssignment(new SliceAssignment(ComputeIndentifiersBySubDomain, "Slices using custom assignment"));
-        var s = new GivenSlices(ruleCreator);
-        return s;
+        ruleCreator.SetSliceAssignment(new SliceAssignment(ComputeIdentifiersBySubDomain, "Slices using custom assignment"));
+        return new GivenSlices(ruleCreator);
     }
 
     // this method can be more generic for sure
-    private SliceIdentifier ComputeIndentifiersBySubDomain(IType t)
+    private SliceIdentifier ComputeIdentifiersBySubDomain(IType t)
     {
         var cars = "CarFactory.Cars";
         var employees = "CarFactory.Employees";
