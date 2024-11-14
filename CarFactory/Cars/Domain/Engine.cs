@@ -1,6 +1,3 @@
 ﻿namespace CarFactory.Cars.Domain;
 
-public class Engine
-{
-
-}
+public class Engine(string name);

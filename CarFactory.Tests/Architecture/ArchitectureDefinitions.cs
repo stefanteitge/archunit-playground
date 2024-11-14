@@ -1,5 +1,6 @@
 ﻿using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent;
+using ArchUnitNET.Fluent.Slices;
 using ArchUnitNET.Fluent.Syntax.Elements.Types;
 using ArchUnitNET.Fluent.Syntax.Elements.Types.Classes;
 using ArchUnitNET.Loader;
@@ -7,6 +8,7 @@ using CarFactory.Cars.Domain;
 using CarFactory.Core;
 using Microsoft.AspNetCore.Mvc;
 using static ArchUnitNET.Fluent.ArchRuleDefinition;
+using static ArchUnitNET.Fluent.Slices.SliceRuleDefinition;
 
 namespace CarFactory.Tests.Architecture;
 
